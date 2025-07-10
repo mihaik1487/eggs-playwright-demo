@@ -1,15 +1,17 @@
-name: Run Playwright Tests
+name: Playwright Tests
 
 on:
-  pull_request:  # Trigger on PRs only
+  pull_request:
+    branches: [main]
+
 
 jobs:
-  smoke-tests:
+  # Stage 1: Smoke tests
+  smoke:
     runs-on: ubuntu-latest
-
+    name: Run Smoke Tests
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -23,24 +25,15 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Smoke Tests
-        run: |
-          npx playwright test --grep @smoke --reporter=html
-        continue-on-error: true  # Allow report upload even if tests fail
+        run: npx playwright test --grep @smoke
 
-      - name: Upload HTML Report
-        if: always()  # Always upload report, even if tests fail
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-smoke-report
-          path: playwright-report
-
-
-  reggression-tests:
+  # Stage 2: Regression tests
+  regression:
     runs-on: ubuntu-latest
-
+    name: Run Regression Tests
+    needs: smoke # only runs if "smoke" job succeeds
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -53,14 +46,5 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Smoke Tests
-        run: |
-          npx playwright test --grep @regression --reporter=html
-        continue-on-error: true  # Allow report upload even if tests fail
-
-      - name: Upload HTML Report
-        if: always()  # Always upload report, even if tests fail
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-smoke-report
-          path: playwright-report
+      - name: Run Regression Tests
+        run: npx playwright test --grep @regression
