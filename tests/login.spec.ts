@@ -11,6 +11,12 @@ test.beforeEach('login with valid credentials', async ({ page }) => {
 
 test('User login with valid credentials', { tag: ['@smoke', '@login', '@regression'] }, async ({ page }) => {
 
+    // Navigate to your login page
+    await page.goto('https://www.saucedemo.com/');
+
+    // Expect a title "to contain" a substring.
+    await expect(page).toHaveTitle(/Swag Labs/);
+
     // Fill in email and password
     await page.locator('[data-test="username"]').pressSequentially('standard_user');
     await page.locator('[data-test="password"]').pressSequentially('secret_sauce');
@@ -47,6 +53,6 @@ test('User tries to login with invalid credentials - invalid password', { tag: [
     await page.click('#login-button');
 
     // Expect an error message to be visible
-    await expect(page.locator('.error-message-container.error')).toBeHidden();
+    await expect(page.locator('.error-message-container.error')).toBeVisible();
 });
 
