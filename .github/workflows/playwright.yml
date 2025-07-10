@@ -1,4 +1,4 @@
-name: Run Playwright @smoke and @regression tests on PR or trigger them manually
+name: Run @smoke and @regression tests on PR or trigger them manually
 
 on:
   pull_request:
