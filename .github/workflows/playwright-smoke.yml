@@ -1,4 +1,4 @@
-name: Run Playwright Smoke Tests
+name: Run only Playwright @smoke tests on Push, PR or trigger them manually
 
 on:
   push:

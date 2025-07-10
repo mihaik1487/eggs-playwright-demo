@@ -1,8 +1,9 @@
-name: Playwright Tests
+name: Run Playwright @smoke and @regression tests on PR or trigger them manually
 
 on:
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 
 jobs:
