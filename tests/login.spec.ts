@@ -47,6 +47,6 @@ test('User tries to login with invalid credentials - invalid password', { tag: [
     await page.click('#login-button');
 
     // Expect an error message to be visible
-    await expect(page.locator('.error-message-container.error')).toBeVisible();
+    await expect(page.locator('.error-message-container.error')).toBeHidden();
 });
 

@@ -13,7 +13,6 @@ test.beforeEach('User login with valid credentials', async ({ page }) => {
     await page.click('#login-button');
 });
 
-
 test('User complete checkout flow',{ tag: ['@regression @checkout'] }, async ({ page }) => {
 
    // Add backpack item to cart
