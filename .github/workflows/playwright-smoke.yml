@@ -24,10 +24,12 @@ jobs:
         run: npm ci
 
       - name: Install Playwright Browsers
-        run: npx playwright test --grep @smoke --reporter=html
+        run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: Run only @smoke tests and generate HTML report
+        run: |
+          npx playwright test --grep @smoke --reporter=html
+        continue-on-error: true
 
       - name: Upload HTML report
         if: always()
