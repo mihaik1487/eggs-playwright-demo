@@ -25,15 +25,16 @@ test('User login with valid credentials', { tag: ['@smoke', '@login', '@regressi
 });
 
 test('User tries to login with invalid credentials - invalid user', { tag: ['@smoke','@login', '@regression'] }, async ({ page }) => {
+
      // Fill in email and password
     await page.locator('[data-test="username"]').pressSequentially('invalid_user');
-        await page.locator('[data-test="password"]').pressSequentially('secret_sauce');
+    await page.locator('[data-test="password"]').pressSequentially('secret_sauce');
 
     // Click the login button
     await page.click('#login-button');
 
+    // Expect an error message to be visible
     await expect(page.locator('.error-message-container.error')).toBeVisible();
-
 });
 
 test('User tries to login with invalid credentials - invalid password', { tag: ['@login', '@regression'] }, async ({ page }) => {
@@ -45,7 +46,7 @@ test('User tries to login with invalid credentials - invalid password', { tag: [
     // Click the login button
     await page.click('#login-button');
 
+    // Expect an error message to be visible
     await expect(page.locator('.error-message-container.error')).toBeVisible();
-
 });
 

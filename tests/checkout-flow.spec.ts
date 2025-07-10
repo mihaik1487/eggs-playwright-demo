@@ -15,25 +15,26 @@ test.beforeEach('User login with valid credentials', async ({ page }) => {
 
 
 test('User complete checkout flow',{ tag: ['@regression @checkout'] }, async ({ page }) => {
-    // 1. Add backpack item to cart
+
+   // Add backpack item to cart
    await page.click('[data-test="add-to-cart-sauce-labs-backpack"]');
 
-   // 2. Open the cart
+   // Open the cart
    await page.click('.shopping_cart_link');
 
-   // 3. Click checkout
+   // Click checkout
    await page.click('[data-test="checkout"]');
 
-   // 4. Fill user info
+   // Fill user info
    await page.fill('[data-test="firstName"]', 'John');
    await page.fill('[data-test="lastName"]', 'Doe');
    await page.fill('[data-test="postalCode"]', '12345');
    await page.click('[data-test="continue"]');
 
-   // 5. Finish checkout
+   // Finish checkout
    await page.click('[data-test="finish"]');
 
-   // 6. Assert checkout complete
+   // Assert checkout complete
    await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
 });
 
