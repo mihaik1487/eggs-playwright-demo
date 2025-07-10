@@ -24,7 +24,7 @@ test('User login with valid credentials', { tag: ['@smoke', '@login', '@regressi
     await expect(page.locator('#error-message-container error')).toBeHidden();
 });
 
-test('User tries to login with invalid credentials - invalid user', { tag: ['@login', '@regression'] }, async ({ page }) => {
+test('User tries to login with invalid credentials - invalid user', { tag: ['@smoke','@login', '@regression'] }, async ({ page }) => {
      // Fill in email and password
     await page.locator('[data-test="username"]').pressSequentially('invalid_user');
         await page.locator('[data-test="password"]').pressSequentially('secret_sauce');
